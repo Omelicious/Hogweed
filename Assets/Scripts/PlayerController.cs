@@ -21,7 +21,6 @@ public class PlayerController : MonoBehaviour
     public int weaponSelection = 0; // 0 - hands, 1 - scythe, 2 - trimmer
     public int viewSelection = 0; // 0 - back, 1 - top
     public bool verticalViewEnabled = true;
-    public bool isActivelyPlaying = true;
 
 /////////////////////////////////////////////////////////////////////////////////////////////
     private Weapon weapon;
@@ -74,7 +73,7 @@ public class PlayerController : MonoBehaviour
         PlayerAction();
 
         
-        if (isActivelyPlaying)
+        if (Time.timeScale > 0f)
         {  
             PlayerLook();
         }
@@ -82,7 +81,7 @@ public class PlayerController : MonoBehaviour
 
     void FixedUpdate()
     {
-        if (isActivelyPlaying)
+        if (Time.timeScale > 0f)
         {
             PlayerMovement();
         }
@@ -90,7 +89,7 @@ public class PlayerController : MonoBehaviour
 
     void PlayerAction()
     {
-        if (Input.GetButton("Attack1") && isActivelyPlaying)
+        if (Input.GetButton("Attack1") && Time.timeScale > 0f)
         {
             switch (weaponSelection)
             {
@@ -141,8 +140,6 @@ public class PlayerController : MonoBehaviour
                     weapon.UpdateAnimator();
                     break;
             }
-
-
 
             SwitchHandIK();
         }
