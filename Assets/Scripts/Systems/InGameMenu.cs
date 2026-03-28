@@ -73,7 +73,17 @@ public class InGameMenu : MonoBehaviour
         Debug.Log("Application closed");
     }
 
+    public void PauseGame()
+    {
+        Time.timeScale = 0f;
+        // also it's for the first push attempt
+    }
 
+    public void UnPauseGame()
+    {
+        Time.timeScale = 1f;
+        // also it's for the first push attempt
+    }
 
     public void OpenEscapeMenu()
     {
