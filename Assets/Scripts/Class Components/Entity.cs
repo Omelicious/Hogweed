@@ -5,18 +5,14 @@ using UnityEngine;
 public class Entity : MonoBehaviour
 {
     private bool firstHit = true;
-    private Material material;
-    private Color originalColor;
     private Rigidbody rigidBody;
     private Collider thisCollider;
 
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
-        material = GetComponent<Renderer>().material;
         rigidBody = GetComponent<Rigidbody>();
         thisCollider = GetComponent<Collider>();
-        originalColor = material.color;
     }
 
     // Update is called once per frame
@@ -29,9 +25,6 @@ public class Entity : MonoBehaviour
     {
         if (other.CompareTag("Attack Trigger") && firstHit) // Only if collides with attack
         {
-            material.color = Color.red;
-            StartCoroutine(ColorReset()); // How coroutines work?///////////////////////////////////////////////////////////////////////
-
             rigidBody.isKinematic = false;
             thisCollider.excludeLayers = LayerMask.GetMask("Default");
 
@@ -43,12 +36,6 @@ public class Entity : MonoBehaviour
             
             PointsSystem.Instance.PointsTotalIncrease();
         }
-    }
-
-    IEnumerator ColorReset() // Why IEnumerator?////////////////////////////////////////////////////////////////////////////////////////
-    {
-        yield return new WaitForSeconds(0.2f); // How wait works? What is yield return?/////////////////////////////////////////////////
-        material.color = originalColor;
     }
 
     IEnumerator ColliderToTrigger()

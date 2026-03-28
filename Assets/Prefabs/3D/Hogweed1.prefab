@@ -11,7 +11,7 @@ GameObject:
   - component: {fileID: 3848950431194178112}
   - component: {fileID: 6262619323828443780}
   - component: {fileID: 3946407049845571586}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: Hogweed_LOD0
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -101,7 +101,7 @@ GameObject:
   - component: {fileID: 67524860783712580}
   - component: {fileID: 4902096113566207933}
   - component: {fileID: 1944097723301537802}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: Hogweed_LOD2
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -190,7 +190,10 @@ GameObject:
   m_Component:
   - component: {fileID: 4826521023764586013}
   - component: {fileID: 333584018706524524}
-  m_Layer: 0
+  - component: {fileID: -8486585695728793207}
+  - component: {fileID: -6498964512871595522}
+  - component: {fileID: 5448683933844206745}
+  m_Layer: 6
   m_Name: Hogweed1
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -248,6 +251,68 @@ LODGroup:
     - renderer: {fileID: 5059888648244967611}
   m_Enabled: 1
   m_GlobalIlluminationLOD: 0
+--- !u!54 &-8486585695728793207
+Rigidbody:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5310007706168394919}
+  serializedVersion: 5
+  m_Mass: 1
+  m_LinearDamping: 0
+  m_AngularDamping: 0.05
+  m_CenterOfMass: {x: 0, y: 0, z: 0}
+  m_InertiaTensor: {x: 1, y: 1, z: 1}
+  m_InertiaRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ImplicitCom: 1
+  m_ImplicitTensor: 1
+  m_UseGravity: 1
+  m_IsKinematic: 1
+  m_Interpolate: 0
+  m_Constraints: 0
+  m_CollisionDetection: 0
+--- !u!136 &-6498964512871595522
+CapsuleCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5310007706168394919}
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_IsTrigger: 0
+  m_ProvidesContacts: 0
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Radius: 0.2
+  m_Height: 5
+  m_Direction: 1
+  m_Center: {x: 0, y: 2.5, z: 0}
+--- !u!114 &5448683933844206745
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5310007706168394919}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8ba2686f302e8d94fa99352956d38a7c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::Entity
 --- !u!1 &6198015722268425083
 GameObject:
   m_ObjectHideFlags: 0
@@ -259,7 +324,7 @@ GameObject:
   - component: {fileID: 1438218672363288797}
   - component: {fileID: 6259284554146228005}
   - component: {fileID: 5059888648244967611}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: Hogweed_LOD3
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -349,7 +414,7 @@ GameObject:
   - component: {fileID: 6402112620142318442}
   - component: {fileID: 3323765964254374229}
   - component: {fileID: 7674249340243561223}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: Hogweed_LOD1
   m_TagString: Untagged
   m_Icon: {fileID: 0}

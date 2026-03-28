@@ -89,7 +89,7 @@ public class PlayerController : MonoBehaviour
 
     void PlayerAction()
     {
-        if (Input.GetButton("Attack1") && Time.timeScale > 0f)
+        if (Input.GetButton("Attack1"))
         {
             switch (weaponSelection)
             {
