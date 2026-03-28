@@ -20,10 +20,10 @@ public class InGameMenu : MonoBehaviour
         Cursor.lockState = CursorLockMode.Locked;
     }
 
-    [SerializeField] private PlayerController playerController;
     [SerializeField] private GameObject escapeMenu;
     [SerializeField] private GameObject buyMenu;
     [SerializeField] public GameObject settingsMenu; // public for now
+    [SerializeField] private GameObject inGameUI; // only toggles when escapemenu toggles
 
     /// <summary>
     /// Start is called on the frame when a script is enabled just before
@@ -78,7 +78,6 @@ public class InGameMenu : MonoBehaviour
         Time.timeScale = 0f;
         // also it's for the first push attempt
     }
-
     public void UnPauseGame()
     {
         Time.timeScale = 1f;
@@ -90,21 +89,21 @@ public class InGameMenu : MonoBehaviour
         escapeMenu.SetActive(true);
         buyMenu.SetActive(false);
         settingsMenu.SetActive(false);
+        inGameUI.SetActive(false);
 
-        playerController.isActivelyPlaying = false;
-
-        if(!Cursor.visible)
+        if(!Cursor.visible) // in case of opened buymenu
             ToggleCursor();
+        PauseGame();
     }
     public void CloseEscapeMenu()
     {
         escapeMenu.SetActive(false);
         buyMenu.SetActive(false);
         settingsMenu.SetActive(false);
-
-        playerController.isActivelyPlaying = true;
+        inGameUI.SetActive(true);
 
         ToggleCursor();
+        UnPauseGame();
     }
     public void OpenBuyMenu()
     {
@@ -112,9 +111,8 @@ public class InGameMenu : MonoBehaviour
         buyMenu.SetActive(true);
         settingsMenu.SetActive(false);
 
-        playerController.isActivelyPlaying = false;
-
         ToggleCursor();
+        PauseGame();
     }
     public void CloseBuyMenu()
     {
@@ -122,23 +120,24 @@ public class InGameMenu : MonoBehaviour
         buyMenu.SetActive(false);
         settingsMenu.SetActive(false);
 
-        playerController.isActivelyPlaying = true;
-
         ToggleCursor();
+        UnPauseGame();
     }
-    public void OpenSettingsMenu()
+    public void OpenSettingsMenu() // Should only be called from escapemenu methods
     {
         escapeMenu.SetActive(false);
         buyMenu.SetActive(false);
         settingsMenu.SetActive(true);
-        playerController.isActivelyPlaying = false;
+
+        PauseGame();
     }
     public void CloseSettingsMenu() // Returns to escape menu
     {
         escapeMenu.SetActive(true);
         buyMenu.SetActive(false);
         settingsMenu.SetActive(false);
-        playerController.isActivelyPlaying = false;
+
+        PauseGame();
     }
 
     private void ToggleCursor()
