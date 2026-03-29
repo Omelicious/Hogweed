@@ -13,9 +13,6 @@ public class InGameMenu : MonoBehaviour
     {
         Instance = this;
 
-        settingsMenu.SetActive(true); // Provoking Awake to apply settings
-        settingsMenu.SetActive(false);
-
         Cursor.visible = false;
         Cursor.lockState = CursorLockMode.Locked;
     }
@@ -76,12 +73,10 @@ public class InGameMenu : MonoBehaviour
     public void PauseGame()
     {
         Time.timeScale = 0f;
-        // also it's for the first push attempt
     }
     public void UnPauseGame()
     {
         Time.timeScale = 1f;
-        // also it's for the first push attempt
     }
 
     public void OpenEscapeMenu()

@@ -6,6 +6,7 @@ using UnityEngine.UI;
 using UnityEngine.Animations.Rigging;
 using UnityEngine.Playables;
 using System.ComponentModel;
+using System.Threading.Tasks;
 
 public class PlayerController : MonoBehaviour
 {
@@ -35,6 +36,7 @@ public class PlayerController : MonoBehaviour
     private Camera playerCamera;
 
     private Animator animator;
+    private AudioSource audioSource;
 
     private TwoBoneIKConstraint rightHandIKScythe;
     private TwoBoneIKConstraint leftHandIKScythe;
@@ -44,6 +46,11 @@ public class PlayerController : MonoBehaviour
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
+        // Request Sensitivity
+        sensitivity = SettingsManager.Instance.sensitivity;
+        xSensitivity = SettingsManager.Instance.xSensitivity;
+        ySensitivity = SettingsManager.Instance.ySensitivity;
+
         playerRigidBody = GetComponent<Rigidbody>(); // Taking Rigidbody
         playerCamera = GetComponentInChildren<Camera>(); // Taking child camera
 
@@ -57,12 +64,10 @@ public class PlayerController : MonoBehaviour
         rightHandIKTrimmer = transform.Find("Character/Rig/Hand_R_IK_Trimmer").GetComponent<TwoBoneIKConstraint>(); // transform searches through children, not the whole scene!!!
 
         animator = character.GetComponent<Animator>();
-
-        // PointsSystem.Instance.LoadPlayerPrefs();
+        audioSource = GetComponent<AudioSource>(); // it is on the Player, not the character
 
         scythe.SetActive(false); // Hide them
         trimmer.SetActive(false); // Sort of object pooling
-        Debug.Log("Hid weapons!");
 
         SwitchHandIK();
     }
@@ -74,17 +79,13 @@ public class PlayerController : MonoBehaviour
 
         
         if (Time.timeScale > 0f)
-        {  
             PlayerLook();
-        }
     }
 
     void FixedUpdate()
     {
         if (Time.timeScale > 0f)
-        {
             PlayerMovement();
-        }
     }
 
     void PlayerAction()
@@ -206,7 +207,12 @@ public class PlayerController : MonoBehaviour
         float inputVertical = Input.GetAxis("Vertical");
         float movementSpeed = movementSpeedBase; // For not to change movementSpeedBase. Makes sprint code easier
 
-        
+        if (inputHorizontal == 0f && inputVertical == 0f) // no movement
+        {
+            animator.SetBool("isWalking", false);
+            animator.SetBool("isRunning", false);
+            return;
+        }
 
         if (Input.GetButton("Sprint"))
         {
@@ -218,25 +224,21 @@ public class PlayerController : MonoBehaviour
 
         movementVector = Vector3.ClampMagnitude(movementVector, 1f); // If magnitude (length) > 1, reduces to 1
 
-        if (movementVector.magnitude > 0) // Switching movement animations if
-        {
-            animator.SetBool("isWalking", true);
+        animator.SetBool("isWalking", true);
+        Debug.Log("walking");
 
-            if (movementSpeed > movementSpeedBase)
-            {
-                animator.SetBool("isRunning", true);
-                animator.SetBool("isWalking", false);
-            }
-        }
-        else
+        if (movementSpeed > movementSpeedBase)
         {
+            animator.SetBool("isRunning", true);
             animator.SetBool("isWalking", false);
-            animator.SetBool("isRunning", false);
         }
 
-        movementVector *= movementSpeed * PointsSystem.Instance.movementSpeedCurrent * Time.fixedDeltaTime; // Then turning it into final vector
+        movementVector *= movementSpeed * PointsSystem.Instance.movementSpeedValue * Time.fixedDeltaTime; // Then turning it into final vector
 
         playerRigidBody.MovePosition(playerRigidBody.position + movementVector);
+
+        if (!audioSource.isPlaying)
+            audioSource.Play();
     }
 
     void SwitchHandIK ()

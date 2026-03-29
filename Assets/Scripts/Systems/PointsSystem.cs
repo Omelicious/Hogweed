@@ -5,57 +5,39 @@ using UnityEngine.UI;
 public class PointsSystem : MonoBehaviour
 {
     public static PointsSystem Instance;
+    public int pointsTotal { get; private set; }
+    public const int MOVEMENT_SPEED_MAX = 10;
+    public const int ATTACK_SPEED_MAX = 5;
+    public const int ATTACK_AREA_MAX = 10;
+
+    public int movementSpeedIncrement { get; private set; } = 1;
+    public int attackSpeedIncrement { get; private set; } = 1;
+    public int attackAreaIncrement { get; private set; } = 1;
+
+    // stays here
+    public int movementSpeedPrice { get; private set; } = 10;
+    public int attackSpeedPrice { get; private set; } = 10;
+    public int attackAreaPrice { get; private set; } = 10;
+    
+    // goes outside
+    public int movementSpeedValue { get; private set; } = 1;
+    public int attackSpeedValue { get; private set; } = 1;
+    public int attackAreaValue { get; private set; } = 1;
+
     /// <summary>
     /// Awake is called when the script instance is being loaded.
     /// </summary>
     private void Awake()
     {
-
-        Instance = this;
+        if (Instance == null)
+            Instance = this;
+        else if (Instance != this)
+            Destroy (gameObject);
         
         LoadPlayerPrefs();
 
-        SetBuyMenuText();
+        DontDestroyOnLoad(Instance); // Keeps when loading new scene
     }
-
-    [SerializeField] private Animator charaAnim;
-    [SerializeField] private Animator scytheAnim;
-    [SerializeField] private Animator trimmerAnim;
-
-    [SerializeField] private int pointsTotal;
-    [SerializeField] private const int MOVEMENT_SPEED_MAX = 10;
-    [SerializeField] private const int ATTACK_SPEED_MAX = 5;
-    [SerializeField] private const int ATTACK_AREA_MAX = 10;
-
-    [SerializeField] private int movementSpeedIncreaseValue = 1;
-    [SerializeField] private int attackSpeedIncreaseValue = 1;
-    [SerializeField] private int attackAreaIncreaseValue = 1;
-
-    // stays here
-    [SerializeField] private int movementSpeedIncreasePrice = 10;
-    [SerializeField] private int attackSpeedIncreasePrice = 10;
-    [SerializeField] private int attackAreaIncreasePrice = 10;
-    
-    // goes outside
-    [SerializeField] public int movementSpeedCurrent = 1;
-    [SerializeField] public int attackSpeedCurrent = 1;
-    [SerializeField] public int attackAreaCurrent = 1;
-
-
-    // UI
-    [SerializeField] private TMPro.TextMeshProUGUI buyWindowPointsText;
-        // Current
-    [SerializeField] private TMPro.TextMeshProUGUI movementSpeedCurrentText;
-    [SerializeField] private TMPro.TextMeshProUGUI attackSpeedCurrentText;
-    [SerializeField] private TMPro.TextMeshProUGUI attackAreaCurrentText;
-        // Increase value
-    [SerializeField] private TMPro.TextMeshProUGUI movementSpeedIncreaseValueText;
-    [SerializeField] private TMPro.TextMeshProUGUI attackSpeedIncreaseValueText;
-    [SerializeField] private TMPro.TextMeshProUGUI attackAreaIncreaseValueText;
-        // Price
-    [SerializeField] private TMPro.TextMeshProUGUI movementSpeedIncreasePriceText;
-    [SerializeField] private TMPro.TextMeshProUGUI attackSpeedIncreasePriceText;
-    [SerializeField] private TMPro.TextMeshProUGUI attackAreaIncreasePriceText;
 
     void Start()
     {
@@ -65,146 +47,77 @@ public class PointsSystem : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        buyWindowPointsText.text = "Очки: " + pointsTotal;
-        //Debug.Log("Movement speed is " + movementSpeedCurrent);
+        
     }
 
     public void BuyWalkSpeed()
     {
-        if (movementSpeedCurrent >= MOVEMENT_SPEED_MAX)
+        if (movementSpeedValue >= MOVEMENT_SPEED_MAX)
             return;
         
-        if(pointsTotal >= movementSpeedIncreasePrice)
+        if(pointsTotal >= movementSpeedPrice)
         {
-            pointsTotal -= movementSpeedIncreasePrice;
-            movementSpeedCurrent += movementSpeedIncreaseValue;
-            movementSpeedIncreasePrice += movementSpeedIncreasePrice;
-
-            movementSpeedCurrentText.text = "" + movementSpeedCurrent;
-            movementSpeedIncreasePriceText.text = movementSpeedIncreasePrice + " очков";
+            pointsTotal -= movementSpeedPrice;
+            movementSpeedValue += movementSpeedIncrement;
+            movementSpeedPrice += movementSpeedPrice;
         }
         
         UpdatePlayerPrefs();
-        SetBuyMenuText();
     }
-
     public void BuyAttackSpeed()
     {
-        if (attackSpeedCurrent >= ATTACK_SPEED_MAX)
+        if (attackSpeedValue >= ATTACK_SPEED_MAX)
             return;
         
-        if(pointsTotal >= attackSpeedIncreasePrice)
+        if(pointsTotal >= attackSpeedPrice)
         {
-            pointsTotal -= attackSpeedIncreasePrice;
-            attackSpeedCurrent += attackSpeedIncreaseValue;
-            attackSpeedIncreasePrice += attackSpeedIncreasePrice;
-
-            attackSpeedCurrentText.text = "" + attackSpeedCurrent;
-            attackSpeedIncreasePriceText.text = attackSpeedIncreasePrice + " очков";
+            pointsTotal -= attackSpeedPrice;
+            attackSpeedValue += attackSpeedIncrement;
+            attackSpeedPrice += attackSpeedPrice;
         }
         
         UpdatePlayerPrefs();
-        SetBuyMenuText();
     }
-
     public void BuyAttackArea()
     {
-        if (attackAreaCurrent >= ATTACK_AREA_MAX)
+        if (attackAreaValue >= ATTACK_AREA_MAX)
             return;
         
-        if(pointsTotal >= attackAreaIncreasePrice)
+        if(pointsTotal >= attackAreaPrice)
         {
-            pointsTotal -= attackAreaIncreasePrice;
-            attackAreaCurrent += attackAreaIncreaseValue;
-            attackAreaIncreasePrice += attackAreaIncreasePrice;
-
-            attackAreaCurrentText.text = "" + attackAreaCurrent;
-            attackAreaIncreasePriceText.text = attackAreaIncreasePrice + " очков";
+            pointsTotal -= attackAreaPrice;
+            attackAreaValue += attackAreaIncrement;
+            attackAreaPrice += attackAreaPrice;
         }
+
         UpdatePlayerPrefs();
-        SetBuyMenuText();
     }
 
     public void PointsTotalIncrease()
     {
         pointsTotal++;
     }
-
-    private void UpdateAnimators()
-    {
-        charaAnim.SetFloat("MoveSpeed", PointsSystem.Instance.movementSpeedCurrent);
-        charaAnim.SetFloat("AttackSpeed", PointsSystem.Instance.attackSpeedCurrent);
-        scytheAnim.SetFloat("AttackSpeed", PointsSystem.Instance.attackSpeedCurrent);
-        trimmerAnim.SetFloat("AttackSpeed", PointsSystem.Instance.attackSpeedCurrent);
-    }
-    
-    private void SetBuyMenuText()
-    {
-        movementSpeedCurrentText.text = "" + movementSpeedCurrent;
-        if (movementSpeedCurrent >= MOVEMENT_SPEED_MAX)
-            movementSpeedCurrentText.text = "MAX";
-
-        attackSpeedCurrentText.text = "" + attackSpeedCurrent;
-        if (attackSpeedCurrent >= ATTACK_SPEED_MAX)
-            attackSpeedCurrentText.text = "MAX";
-
-        attackAreaCurrentText.text = "" + attackAreaCurrent;
-        if (attackAreaCurrent >= ATTACK_AREA_MAX)
-            attackAreaCurrentText.text = "MAX";
-
-
-
-        movementSpeedIncreaseValueText.text = "+ " + movementSpeedIncreaseValue;
-        if (movementSpeedCurrent >= MOVEMENT_SPEED_MAX)
-            movementSpeedIncreaseValueText.text = "MAX";
-
-        attackSpeedIncreaseValueText.text = "+ " + attackSpeedIncreaseValue;
-        if (attackSpeedCurrent >= ATTACK_SPEED_MAX)
-            attackSpeedIncreaseValueText.text = "MAX";
-
-        attackAreaIncreaseValueText.text = "+ " + attackAreaIncreaseValue;
-        if (attackAreaCurrent >= ATTACK_AREA_MAX)
-            attackAreaIncreaseValueText.text = "MAX";
-
-        
-
-        movementSpeedIncreasePriceText.text = movementSpeedIncreasePrice + " очков";
-        if (movementSpeedCurrent >= MOVEMENT_SPEED_MAX)
-            movementSpeedIncreasePriceText.text = "MAX";
-
-        attackSpeedIncreasePriceText.text = attackSpeedIncreasePrice + " очков";
-        if (attackSpeedCurrent >= ATTACK_SPEED_MAX)
-            attackSpeedIncreasePriceText.text = "MAX";
-
-        attackAreaIncreasePriceText.text = attackAreaIncreasePrice + " очков";
-        if (attackAreaCurrent >= ATTACK_AREA_MAX)
-            attackAreaIncreasePriceText.text = "MAX";
-    }
+ 
     public void LoadPlayerPrefs()
     {
         pointsTotal = PlayerPrefs.GetInt("Points total", 0);
-        movementSpeedIncreasePrice = PlayerPrefs.GetInt("Movement price", 10);
-        attackSpeedIncreasePrice = PlayerPrefs.GetInt("Attack speed price", 10);
-        attackAreaIncreasePrice = PlayerPrefs.GetInt("Attack area price", 10);
-        movementSpeedCurrent = PlayerPrefs.GetInt("Movement", 1);
-        attackSpeedCurrent = PlayerPrefs.GetInt("Attack speed", 1);
-        attackAreaCurrent = PlayerPrefs.GetInt("Attack area", 1);
+        movementSpeedPrice = PlayerPrefs.GetInt("Movement price", 10);
+        attackSpeedPrice = PlayerPrefs.GetInt("Attack speed price", 10);
+        attackAreaPrice = PlayerPrefs.GetInt("Attack area price", 10);
+        movementSpeedValue = PlayerPrefs.GetInt("Movement", 1);
+        attackSpeedValue = PlayerPrefs.GetInt("Attack speed", 1);
+        attackAreaValue = PlayerPrefs.GetInt("Attack area", 1);
 
         Debug.Log("Loaded points prefs!");
-
-        UpdateAnimators();
-        SetBuyMenuText();
     }
     public void UpdatePlayerPrefs()
     {
         PlayerPrefs.SetInt("Points total", pointsTotal);
-        PlayerPrefs.SetInt("Movement price", movementSpeedIncreasePrice);
-        PlayerPrefs.SetInt("Attack speed price", attackSpeedIncreasePrice);
-        PlayerPrefs.SetInt("Attack area price", attackAreaIncreasePrice);
-        PlayerPrefs.SetInt("Movement", movementSpeedCurrent);
-        PlayerPrefs.SetInt("Attack speed", attackSpeedCurrent);
-        PlayerPrefs.SetInt("Attack area", attackAreaCurrent);
-
-        UpdateAnimators();
+        PlayerPrefs.SetInt("Movement price", movementSpeedPrice);
+        PlayerPrefs.SetInt("Attack speed price", attackSpeedPrice);
+        PlayerPrefs.SetInt("Attack area price", attackAreaPrice);
+        PlayerPrefs.SetInt("Movement", movementSpeedValue);
+        PlayerPrefs.SetInt("Attack speed", attackSpeedValue);
+        PlayerPrefs.SetInt("Attack area", attackAreaValue);
     }
 }

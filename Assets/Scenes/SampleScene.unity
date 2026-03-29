@@ -308,7 +308,7 @@ GameObject:
   - component: {fileID: 96230863}
   - component: {fileID: 96230862}
   m_Layer: 5
-  m_Name: Text
+  m_Name: Header
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -442,6 +442,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 144224016}
+  - component: {fileID: 144224017}
   m_Layer: 5
   m_Name: Buy Menu
   m_TagString: Untagged
@@ -473,6 +474,31 @@ RectTransform:
   m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 100, y: 100}
   m_Pivot: {x: 0.5, y: 0.5}
+--- !u!114 &144224017
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 144224015}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 41502bf869ef66f459bb5260bdb754bf, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::BuyMenu
+  charaAnim: {fileID: 1804879894}
+  scytheAnim: {fileID: 989753791}
+  trimmerAnim: {fileID: 975467544}
+  pointsText: {fileID: 1336471275}
+  movementSpeedValueText: {fileID: 1001060157}
+  attackSpeedValueText: {fileID: 225305123}
+  attackAreaValueText: {fileID: 1824964193}
+  movementSpeedIncrementText: {fileID: 174434984}
+  attackSpeedIncrementText: {fileID: 739381574}
+  attackAreaIncrementText: {fileID: 639834563}
+  movementSpeedPriceText: {fileID: 2097673814}
+  attackSpeedPriceText: {fileID: 322533844}
+  attackAreaPriceText: {fileID: 2094369953}
 --- !u!1 &158450490
 GameObject:
   m_ObjectHideFlags: 0
@@ -578,7 +604,7 @@ GameObject:
   - component: {fileID: 174434985}
   - component: {fileID: 174434984}
   m_Layer: 5
-  m_Name: Increase Value Text
+  m_Name: Increment Text
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -918,7 +944,7 @@ GameObject:
   - component: {fileID: 225305124}
   - component: {fileID: 225305123}
   m_Layer: 5
-  m_Name: Current Value Text
+  m_Name: Value Text
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -1152,10 +1178,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6f1b2d6d4fda2f14a9878bc2a745d995, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::InGameMenu
-  playerController: {fileID: 2065922608}
   escapeMenu: {fileID: 1755728532}
   buyMenu: {fileID: 144224015}
   settingsMenu: {fileID: 267029579}
+  inGameUI: {fileID: 1070737138}
 --- !u!4 &304469055
 Transform:
   m_ObjectHideFlags: 0
@@ -1183,7 +1209,7 @@ GameObject:
   - component: {fileID: 322533845}
   - component: {fileID: 322533844}
   m_Layer: 5
-  m_Name: Price Value Text
+  m_Name: Price Text
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -2489,7 +2515,7 @@ GameObject:
   - component: {fileID: 639834564}
   - component: {fileID: 639834563}
   m_Layer: 5
-  m_Name: Increase Value Text
+  m_Name: Increment Text
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -2975,7 +3001,7 @@ GameObject:
   - component: {fileID: 739381575}
   - component: {fileID: 739381574}
   m_Layer: 5
-  m_Name: Increase Value Text
+  m_Name: Increment Text
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -3262,29 +3288,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: eef8c7251a7e6494180dcac80048f2f4, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::PointsSystem
-  charaAnim: {fileID: 1804879894}
-  scytheAnim: {fileID: 989753791}
-  trimmerAnim: {fileID: 975467544}
-  pointsTotal: 0
-  movementSpeedIncreaseValue: 1
-  attackSpeedIncreaseValue: 1
-  attackAreaIncreaseValue: 1
-  movementSpeedIncreasePrice: 10
-  attackSpeedIncreasePrice: 10
-  attackAreaIncreasePrice: 10
-  movementSpeedCurrent: 1
-  attackSpeedCurrent: 1
-  attackAreaCurrent: 1
-  buyWindowPointsText: {fileID: 1336471275}
-  movementSpeedCurrentText: {fileID: 1001060157}
-  attackSpeedCurrentText: {fileID: 225305123}
-  attackAreaCurrentText: {fileID: 1824964193}
-  movementSpeedIncreaseValueText: {fileID: 174434984}
-  attackSpeedIncreaseValueText: {fileID: 739381574}
-  attackAreaIncreaseValueText: {fileID: 639834563}
-  movementSpeedIncreasePriceText: {fileID: 2097673814}
-  attackSpeedIncreasePriceText: {fileID: 322533844}
-  attackAreaIncreasePriceText: {fileID: 2094369953}
 --- !u!4 &817117454
 Transform:
   m_ObjectHideFlags: 0
@@ -3738,7 +3741,7 @@ GameObject:
   - component: {fileID: 1001060158}
   - component: {fileID: 1001060157}
   m_Layer: 5
-  m_Name: Current Value Text
+  m_Name: Value Text
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -3875,7 +3878,7 @@ GameObject:
   - component: {fileID: 1005121174}
   - component: {fileID: 1005121173}
   m_Layer: 5
-  m_Name: Text
+  m_Name: Header
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -4052,6 +4055,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: Hogweed Field (3)
       objectReference: {fileID: 0}
+    - target: {fileID: 3182506615121381149, guid: d79c0889a9a7d774dbbe88693d09cad7, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -4169,6 +4176,37 @@ MeshFilter:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1035818689}
   m_Mesh: {fileID: 10202, guid: 0000000000000000e000000000000000, type: 0}
+--- !u!1 &1070361025
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1070361026}
+  m_Layer: 0
+  m_Name: ///////////////////////////////////////////////////
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &1070361026
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1070361025}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1070737138
 GameObject:
   m_ObjectHideFlags: 0
@@ -4355,9 +4393,9 @@ MonoBehaviour:
   m_GameObject: {fileID: 1078895587}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: d01ceef3429d09842a12d721edc5e94e, type: 3}
+  m_Script: {fileID: 11500000, guid: 8ba2686f302e8d94fa99352956d38a7c, type: 3}
   m_Name: 
-  m_EditorClassIdentifier: Assembly-CSharp::AttackTrigger
+  m_EditorClassIdentifier: Assembly-CSharp::Entity
 --- !u!1 &1108062495
 GameObject:
   m_ObjectHideFlags: 0
@@ -5678,7 +5716,7 @@ GameObject:
   - component: {fileID: 1612087074}
   - component: {fileID: 1612087073}
   m_Layer: 5
-  m_Name: Text
+  m_Name: Header
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -6295,6 +6333,57 @@ RectTransform:
   m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 100, y: 100}
   m_Pivot: {x: 0.5, y: 0.5}
+--- !u!1 &1768192170
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1768192172}
+  - component: {fileID: 1768192171}
+  m_Layer: 0
+  m_Name: SettingsManager
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!114 &1768192171
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1768192170}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 456373ba6c7e52f41b870dd056701b6f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::SettingsManager
+  mainMixer: {fileID: 24100000, guid: 0d83b7e7924b673499ecba1cb64a289f, type: 2}
+  resolutionIndex: -1
+  isFullScreen: 0
+  volume: 0
+  sensitivity: 0
+  xSensitivity: 0
+  ySensitivity: 0
+--- !u!4 &1768192172
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1768192170}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: -1.74225, y: -5, z: 8.60098}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!95 &1804879894 stripped
 Animator:
   m_CorrespondingSourceObject: {fileID: 3060641043328297732, guid: 46d6552a4a4be1346a6dffc9805195de, type: 3}
@@ -6312,7 +6401,7 @@ GameObject:
   - component: {fileID: 1824964194}
   - component: {fileID: 1824964193}
   m_Layer: 5
-  m_Name: Current Value Text
+  m_Name: Value Text
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -6489,6 +6578,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: Hogweed Field (2)
       objectReference: {fileID: 0}
+    - target: {fileID: 3182506615121381149, guid: d79c0889a9a7d774dbbe88693d09cad7, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -6509,8 +6602,8 @@ GameObject:
   m_Component:
   - component: {fileID: 2065922603}
   - component: {fileID: 2065922605}
-  - component: {fileID: 2065922607}
   - component: {fileID: 2065922609}
+  - component: {fileID: 2065922610}
   - component: {fileID: 2065922608}
   m_Layer: 0
   m_Name: Player
@@ -6570,27 +6663,6 @@ Rigidbody:
   m_Interpolate: 1
   m_Constraints: 80
   m_CollisionDetection: 3
---- !u!65 &2065922607
-BoxCollider:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2065922601}
-  m_Material: {fileID: 0}
-  m_IncludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_ExcludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_LayerOverridePriority: 0
-  m_IsTrigger: 0
-  m_ProvidesContacts: 0
-  m_Enabled: 0
-  serializedVersion: 3
-  m_Size: {x: 1, y: 4, z: 1}
-  m_Center: {x: 0, y: 2, z: 0}
 --- !u!114 &2065922608
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -6611,7 +6683,6 @@ MonoBehaviour:
   weaponSelection: 0
   viewSelection: 0
   verticalViewEnabled: 1
-  isActivelyPlaying: 1
   raycaster: {fileID: 1352724388}
 --- !u!136 &2065922609
 CapsuleCollider:
@@ -6636,6 +6707,103 @@ CapsuleCollider:
   m_Height: 4
   m_Direction: 1
   m_Center: {x: 0, y: 2, z: 0}
+--- !u!82 &2065922610
+AudioSource:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2065922601}
+  m_Enabled: 1
+  serializedVersion: 4
+  OutputAudioMixerGroup: {fileID: -1690483450280485609, guid: 0d83b7e7924b673499ecba1cb64a289f, type: 2}
+  m_audioClip: {fileID: 0}
+  m_Resource: {fileID: 6418180475301049370, guid: 6960156a58cfff34995468376d12fd58, type: 2}
+  m_PlayOnAwake: 0
+  m_Volume: 0.801
+  m_Pitch: 1
+  Loop: 0
+  Mute: 0
+  Spatialize: 0
+  SpatializePostEffects: 0
+  Priority: 128
+  DopplerLevel: 1
+  MinDistance: 1
+  MaxDistance: 500
+  Pan2D: 0
+  rolloffMode: 0
+  BypassEffects: 0
+  BypassListenerEffects: 0
+  BypassReverbZones: 0
+  rolloffCustomCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 3
+      time: 0
+      value: 1
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    - serializedVersion: 3
+      time: 1
+      value: 0
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
+  panLevelCustomCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 3
+      time: 0
+      value: 0
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
+  spreadCustomCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 3
+      time: 0
+      value: 0
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
+  reverbZoneMixCustomCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 3
+      time: 0
+      value: 1
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
 --- !u!1 &2094369951
 GameObject:
   m_ObjectHideFlags: 0
@@ -6648,7 +6816,7 @@ GameObject:
   - component: {fileID: 2094369954}
   - component: {fileID: 2094369953}
   m_Layer: 5
-  m_Name: Price Value Text
+  m_Name: Price Text
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -6785,7 +6953,7 @@ GameObject:
   - component: {fileID: 2097673815}
   - component: {fileID: 2097673814}
   m_Layer: 5
-  m_Name: Price Value Text
+  m_Name: Price Text
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -7305,6 +7473,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: Hogweed Field
       objectReference: {fileID: 0}
+    - target: {fileID: 3182506615121381149, guid: d79c0889a9a7d774dbbe88693d09cad7, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -7316,6 +7488,11 @@ SceneRoots:
   m_Roots:
   - {fileID: 410087041}
   - {fileID: 832575519}
+  - {fileID: 649877066}
+  - {fileID: 817117454}
+  - {fileID: 1768192172}
+  - {fileID: 304469055}
+  - {fileID: 1070361026}
   - {fileID: 1736002179}
   - {fileID: 1108062496}
   - {fileID: 9028477447840189052}
@@ -7325,7 +7502,4 @@ SceneRoots:
   - {fileID: 2065922603}
   - {fileID: 1078895591}
   - {fileID: 1233250233}
-  - {fileID: 649877066}
-  - {fileID: 817117454}
-  - {fileID: 304469055}
   - {fileID: 178419522}

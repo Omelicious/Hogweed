@@ -3,19 +3,19 @@ using UnityEngine;
 public class TrimmerWalkForward : StateMachineBehaviour
 {
     private Rigidbody playerRigidBody;
-    private int attackSpeedIncrease = 1;
+    private int attackSpeedIncrement = 1;
 
     // OnStateEnter is called when a transition starts and the state machine starts to evaluate this state
     override public void OnStateEnter(Animator animator, AnimatorStateInfo stateInfo, int layerIndex)
     {
         playerRigidBody = GameObject.FindGameObjectWithTag("Player").GetComponent<Rigidbody>();
-        attackSpeedIncrease = PointsSystem.Instance.attackSpeedCurrent;
+        attackSpeedIncrement = PointsSystem.Instance.attackSpeedValue;
     }
 
     // OnStateUpdate is called on each Update frame between OnStateEnter and OnStateExit callbacks
     override public void OnStateUpdate(Animator animator, AnimatorStateInfo stateInfo, int layerIndex)
     {
-        playerRigidBody.MovePosition(playerRigidBody.position + playerRigidBody.transform.forward * attackSpeedIncrease * Time.deltaTime * 0.8f);
+        playerRigidBody.MovePosition(playerRigidBody.position + playerRigidBody.transform.forward * attackSpeedIncrement * Time.deltaTime * 0.8f);
     }
 
     // OnStateExit is called when a transition ends and the state machine finishes evaluating this state
