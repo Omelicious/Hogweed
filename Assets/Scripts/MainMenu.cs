@@ -3,15 +3,22 @@ using System.Runtime.Serialization;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
+using UnityEngine.InputSystem;
+
 public class MainMenu : MonoBehaviour
 {
     public static MainMenu Instance;
+
+    private InputAction escapeAction;
     /// <summary>
     /// Awake is called when the script instance is being loaded.
     /// </summary>
     private void Awake()
     {
         Instance = this;
+
+        escapeAction = InputSystem.actions.FindAction("Escape");
+        escapeAction.Enable();
     }
 
     [SerializeField] private GameObject titleText;
@@ -24,7 +31,7 @@ public class MainMenu : MonoBehaviour
     /// </summary>
     void Update()
     {
-        if (Input.GetButtonDown("Escape"))
+        if (escapeAction.WasPressedThisFrame())
             ToggleSettingsMenu();
     }
 

@@ -3,15 +3,26 @@ using System.Collections;
 using System.Runtime.Serialization;
 using UnityEngine.SceneManagement;
 
+using UnityEngine.InputSystem;
+
 public class InGameMenu : MonoBehaviour
 {
     public static InGameMenu Instance;
+
+    private InputAction escapeAction;
+    private InputAction buyAction;
+
     /// <summary>
     /// Awake is called when the script instance is being loaded.
     /// </summary>
     private void Awake()
     {
         Instance = this;
+
+        escapeAction = InputSystem.actions.FindAction("Escape");
+        escapeAction.Enable();
+        buyAction = InputSystem.actions.FindAction("Buy");
+        buyAction.Enable();
 
         Cursor.visible = false;
         Cursor.lockState = CursorLockMode.Locked;
@@ -29,7 +40,7 @@ public class InGameMenu : MonoBehaviour
     void Update()
     {
         // menu
-        if (Input.GetButtonDown("Escape"))
+        if (escapeAction.WasPressedThisFrame())
         {
             if (!escapeMenu.activeSelf && settingsMenu.activeSelf)
             {
@@ -41,11 +52,12 @@ public class InGameMenu : MonoBehaviour
                 OpenEscapeMenu();
                 return;
             }
+
             CloseEscapeMenu();
         }
         
         // Buy menu
-        if (Input.GetButtonDown("Buy"))
+        if (buyAction.WasPressedThisFrame())
         {
             if (escapeMenu.activeSelf || settingsMenu.activeSelf)
                 return;

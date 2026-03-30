@@ -8,8 +8,12 @@ using UnityEngine.Playables;
 using System.ComponentModel;
 using System.Threading.Tasks;
 
+using UnityEngine.InputSystem;
+
 public class PlayerController : MonoBehaviour
 {
+    #region Public Fields
+
     public float movementSpeedBase = 5.0f;
     public float runSpeedMultiplyer = 2.5f;
     public float sensitivity = 1.0f;
@@ -23,14 +27,20 @@ public class PlayerController : MonoBehaviour
     public int viewSelection = 0; // 0 - back, 1 - top
     public bool verticalViewEnabled = true;
 
-/////////////////////////////////////////////////////////////////////////////////////////////
-    private Weapon weapon;
+    #endregion
 
-    [SerializeField] private GameObject raycaster;
+    #region Objects For Interaction
 
     private GameObject scythe;
     private GameObject character;
     private GameObject trimmer;
+    private Weapon weapon;
+
+    #endregion
+
+    #region Player Variables
+
+    [SerializeField] private GameObject raycaster;
 
     private Rigidbody playerRigidBody;
     private Camera playerCamera;
@@ -43,10 +53,25 @@ public class PlayerController : MonoBehaviour
     private TwoBoneIKConstraint rightHandIKTrimmer;
     private TwoBoneIKConstraint leftHandIKTrimmer;
 
+    #endregion
+    
+    #region Input Actions
+
+    private InputAction moveAction;
+    private InputAction interactAction;
+    private InputAction sprintAction;
+    private InputAction attackAction;
+    private InputAction viewAction;
+    private InputAction lookAction;
+
+    #endregion
+
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
-        // Request Sensitivity
+        FindActionBindings();
+
+        // Request sensitivity from settings manager
         sensitivity = SettingsManager.Instance.sensitivity;
         xSensitivity = SettingsManager.Instance.xSensitivity;
         ySensitivity = SettingsManager.Instance.ySensitivity;
@@ -90,7 +115,7 @@ public class PlayerController : MonoBehaviour
 
     void PlayerAction()
     {
-        if (Input.GetButton("Attack1"))
+        if (attackAction.IsPressed())
         {
             switch (weaponSelection)
             {
@@ -106,6 +131,10 @@ public class PlayerController : MonoBehaviour
             weapon?.Attack(); // the ? checks for null
             weapon?.animator.SetBool("isAttacking", true);
         }
+        else if (attackAction.WasReleasedThisFrame())
+        {
+            weapon?.CancelAttack();
+        }
         else
         {
             animator.SetBool("Scythe", false);
@@ -114,7 +143,7 @@ public class PlayerController : MonoBehaviour
         }
 
         // Switch weapons
-        if (Input.GetButtonDown("Use"))
+        if (interactAction.WasPressedThisFrame())
         {
             weaponSelection += 1;
             weaponSelection %= 3;
@@ -145,7 +174,7 @@ public class PlayerController : MonoBehaviour
             SwitchHandIK();
         }
 
-        if (Input.GetButtonDown("View"))
+        if (viewAction.WasPressedThisFrame())
         {
             viewSelection += 1;
             viewSelection %=3;
@@ -174,18 +203,19 @@ public class PlayerController : MonoBehaviour
     void PlayerLook()
     {
         //playerRigidBody.constraints = RigidbodyConstraints.FreezeRotationX | RigidbodyConstraints.FreezeRotationY | RigidbodyConstraints.FreezeRotationZ; // needed to be done because of a bug after climbing slopes
-
-        float inputMouseX = Input.GetAxis("Mouse X");
-        float inputMouseY = Input.GetAxis("Mouse Y");
+        
+        Vector2 lookValue = lookAction.ReadValue<Vector2>();
+        float inputMouseX = lookValue.x;
+        float inputMouseY = -lookValue.y;
 
         Vector3 cameraRotation = playerCamera.transform.eulerAngles; // Taking global rotation in Vector3 (Euler angles)
         Vector3 playerRotation = transform.eulerAngles;              // because quaternions are too complex for me
 
         if (verticalViewEnabled)
         {
-            cameraRotation.x += inputMouseY * ySensitivity * sensitivity * 100f * Time.fixedDeltaTime; // The 100 is to increase sensitivity
+            cameraRotation.x += inputMouseY * ySensitivity * sensitivity * Time.fixedDeltaTime; // The 100 is to increase sensitivity
         }
-        playerRotation.y += inputMouseX * xSensitivity * sensitivity * 100f * Time.fixedDeltaTime;   // but leave the sens variable small
+        playerRotation.y += inputMouseX * xSensitivity * sensitivity * Time.fixedDeltaTime;   // but leave the sens variable small
 
         if (cameraRotation.x > 180f) // Unity represents negative angles as >180 angles. 
         {                            // So working with Euler angles we have to represent >180 angles as negative.
@@ -203,8 +233,9 @@ public class PlayerController : MonoBehaviour
 
     void PlayerMovement()
     {
-        float inputHorizontal = Input.GetAxis("Horizontal");
-        float inputVertical = Input.GetAxis("Vertical");
+        Vector2 moveValue = moveAction.ReadValue<Vector2>();
+        float inputHorizontal = moveValue.x;
+        float inputVertical = moveValue.y;
         float movementSpeed = movementSpeedBase; // For not to change movementSpeedBase. Makes sprint code easier
 
         if (inputHorizontal == 0f && inputVertical == 0f) // no movement
@@ -241,7 +272,7 @@ public class PlayerController : MonoBehaviour
             audioSource.Play();
     }
 
-    void SwitchHandIK ()
+    void SwitchHandIK()
     {
         switch (weaponSelection)
         {
@@ -282,4 +313,20 @@ public class PlayerController : MonoBehaviour
             playerRigidBody.MovePosition(newPosition);
         }
 }
+
+    void FindActionBindings()
+    {
+        moveAction = InputSystem.actions.FindAction("Move");
+        moveAction?.Enable();
+        interactAction = InputSystem.actions.FindAction("Interact");
+        interactAction?.Enable();
+        sprintAction = InputSystem.actions.FindAction("Sprint");
+        sprintAction?.Enable();
+        attackAction = InputSystem.actions.FindAction("Attack");
+        attackAction?.Enable();
+        viewAction = InputSystem.actions.FindAction("View");
+        viewAction?.Enable();
+        lookAction = InputSystem.actions.FindAction("Look");
+        lookAction?.Enable();
+    }
 }

@@ -3,6 +3,8 @@ using UnityEngine.Audio;
 
 public class Weapon : MonoBehaviour
 {
+    private bool active;
+
     [SerializeField] private Transform knifeTransform;
     [SerializeField] private GameObject attackEffect;
 
@@ -17,6 +19,7 @@ public class Weapon : MonoBehaviour
     {
         animator = GetComponent<Animator>();
         audioSource = GetComponent<AudioSource>();
+        active = false;
 
         // audioSource.generator = activeAudio; // OR I can do 2 sources and change their volumes?
     }
@@ -34,10 +37,24 @@ public class Weapon : MonoBehaviour
             GameObject attackInstance = Instantiate(attackEffect, knifeTransform.position, knifeTransform.rotation, knifeTransform);
             attackInstance.transform.localScale /= 50 / PointsSystem.Instance.attackAreaValue; // Was too big when spawned on knives, so I shrinked it
             
-            
             Destroy(attackInstance, 0.5f);
         }
+
+        if(!active)
+        {
+            active = true;
+            audioSource.generator = activeAudio;
+            audioSource.Play();
+        }
     }
+
+    public void CancelAttack()
+    {
+        active = false;
+        audioSource.generator = idleAudio;
+        audioSource.Play();
+    }
+
 
     public void UpdateAnimator()
     {
