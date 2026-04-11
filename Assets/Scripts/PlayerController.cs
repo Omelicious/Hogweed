@@ -12,27 +12,22 @@ using UnityEngine.InputSystem;
 
 public class PlayerController : MonoBehaviour
 {
-    #region Public Fields
+    #region Fields
 
-    public float movementSpeedBase = 5.0f;
-    public float runSpeedMultiplyer = 2.5f;
-    public float sensitivity = 1.0f;
-    public float ySensitivity = 1.0f;
-    public float xSensitivity = 1.0f;
-    
-    //public float debugVariable;
-    //public float debugVariable2;
-
-    public int weaponSelection = 0; // 0 - hands, 1 - scythe, 2 - trimmer
-    public int viewSelection = 0; // 0 - back, 1 - top
-    public bool verticalViewEnabled = true;
+    [SerializeField] private float movementSpeedBase = 5.0f;
+    [SerializeField] private float runSpeedMultiplyer = 2.5f;
+    private float sensitivity;
+    private float ySensitivity;
+    private float xSensitivity;
+    private int weaponSelection = 0; // 0 - hands, 1 - scythe, 2 - trimmer
+    private int viewSelection = 0; // 0 - back, 1 - top
+    private bool verticalViewEnabled = true;
 
     #endregion
 
     #region Objects For Interaction
 
     private GameObject scythe;
-    private GameObject character;
     private GameObject trimmer;
     private Weapon weapon;
 
@@ -81,14 +76,14 @@ public class PlayerController : MonoBehaviour
 
         scythe = GameObject.Find("Scythe"); // Tags will be better, but it'll do it for now<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<
         trimmer = GameObject.Find("Trimmer");
-        character = GameObject.Find("Character");
+        
 
         leftHandIKScythe = transform.Find("Character/Rig/Hand_L_IK_Scythe").GetComponent<TwoBoneIKConstraint>(); // Get constraints for character arms
         rightHandIKScythe = transform.Find("Character/Rig/Hand_R_IK_Scythe").GetComponent<TwoBoneIKConstraint>();
         leftHandIKTrimmer = transform.Find("Character/Rig/Hand_L_IK_Trimmer").GetComponent<TwoBoneIKConstraint>();
         rightHandIKTrimmer = transform.Find("Character/Rig/Hand_R_IK_Trimmer").GetComponent<TwoBoneIKConstraint>(); // transform searches through children, not the whole scene!!!
-
-        animator = character.GetComponent<Animator>();
+        
+        animator = GameObject.Find("Character").GetComponent<Animator>();
         audioSource = GetComponent<AudioSource>(); // it is on the Player, not the character
 
         scythe.SetActive(false); // Hide them
@@ -203,19 +198,23 @@ public class PlayerController : MonoBehaviour
     void PlayerLook()
     {
         //playerRigidBody.constraints = RigidbodyConstraints.FreezeRotationX | RigidbodyConstraints.FreezeRotationY | RigidbodyConstraints.FreezeRotationZ; // needed to be done because of a bug after climbing slopes
-        
         Vector2 lookValue = lookAction.ReadValue<Vector2>();
-        float inputMouseX = lookValue.x;
-        float inputMouseY = -lookValue.y;
+        float inputMouseX = lookValue.x; // Vertical
+        float inputMouseY = -lookValue.y; // Horizontal
+
+        if (inputMouseX == 0f && inputMouseY == 0f)
+        {
+            return;
+        }
 
         Vector3 cameraRotation = playerCamera.transform.eulerAngles; // Taking global rotation in Vector3 (Euler angles)
         Vector3 playerRotation = transform.eulerAngles;              // because quaternions are too complex for me
 
         if (verticalViewEnabled)
         {
-            cameraRotation.x += inputMouseY * ySensitivity * sensitivity * Time.fixedDeltaTime; // The 100 is to increase sensitivity
+            cameraRotation.x += inputMouseY * ySensitivity * sensitivity * Time.fixedDeltaTime;
         }
-        playerRotation.y += inputMouseX * xSensitivity * sensitivity * Time.fixedDeltaTime;   // but leave the sens variable small
+        playerRotation.y += inputMouseX * xSensitivity * sensitivity * Time.fixedDeltaTime;
 
         if (cameraRotation.x > 180f) // Unity represents negative angles as >180 angles. 
         {                            // So working with Euler angles we have to represent >180 angles as negative.
@@ -227,7 +226,6 @@ public class PlayerController : MonoBehaviour
         playerCamera.transform.eulerAngles = cameraRotation; // May be i should clamp camera angles, so player can not look down?<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<
         playerRigidBody.MoveRotation(Quaternion.Euler(playerRotation)); // Rigidbody rotates Player object, we're in clear
 
-        FixGroundCollision();
         //playerRigidBody.constraints = RigidbodyConstraints.FreezeRotationX | RigidbodyConstraints.FreezeRotationZ; // Removing y rotation constraint
     }
 
@@ -245,9 +243,16 @@ public class PlayerController : MonoBehaviour
             return;
         }
 
-        if (Input.GetButton("Sprint"))
+        if (sprintAction.IsPressed())
         {
+            animator.SetBool("isRunning", true);
+            animator.SetBool("isWalking", false);
             movementSpeed *= runSpeedMultiplyer;
+        }
+        else
+        {
+            animator.SetBool("isRunning", false);
+            animator.SetBool("isWalking", true);
         }
 
         // Adds (+) two local vectors into one
@@ -255,18 +260,11 @@ public class PlayerController : MonoBehaviour
 
         movementVector = Vector3.ClampMagnitude(movementVector, 1f); // If magnitude (length) > 1, reduces to 1
 
-        animator.SetBool("isWalking", true);
-        Debug.Log("walking");
-
-        if (movementSpeed > movementSpeedBase)
-        {
-            animator.SetBool("isRunning", true);
-            animator.SetBool("isWalking", false);
-        }
-
         movementVector *= movementSpeed * PointsSystem.Instance.movementSpeedValue * Time.fixedDeltaTime; // Then turning it into final vector
 
         playerRigidBody.MovePosition(playerRigidBody.position + movementVector);
+        
+        FixGroundCollision();
 
         if (!audioSource.isPlaying)
             audioSource.Play();

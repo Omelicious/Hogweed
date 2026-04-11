@@ -1,7 +1,7 @@
 using UnityEngine;
 using UnityEngine.Audio;
 
-public class Weapon : MonoBehaviour
+public abstract class IWeapon : MonoBehaviour
 {
     private bool active;
 
@@ -9,19 +9,17 @@ public class Weapon : MonoBehaviour
     [SerializeField] private GameObject attackEffect;
 
     [SerializeField] private AudioSource audioSource;
-    [SerializeField] private AudioClip idleAudio;
     [SerializeField] private AudioClip activeAudio;
 
     public Animator animator;
 
     // Start is called once before the first execution of Update after the MonoBehaviour is created
-    void Start()
+    protected virtual void Start() // protected allows to reuse this code when overriding, buy accessing it through base.Start();
     {
         animator = GetComponent<Animator>();
         audioSource = GetComponent<AudioSource>();
 
         active = false;
-        audioSource.generator = idleAudio;
     }
 
     // Update is called once per frame
@@ -30,32 +28,22 @@ public class Weapon : MonoBehaviour
         
     }
 
-    public void Attack ()
-    {
-        SpawnAttackTrigger();
+    public abstract void Attack (); // abstract forces to write daughter-specific code
 
-        if(!active)
-        {
-            active = true;
-            audioSource.generator = activeAudio;
-            audioSource.Play();
-        }
-    }
 
-    public void CancelAttack()
+    public virtual void CancelAttack() // virtual offers base behaviour
     {
         active = false;
-        audioSource.generator = idleAudio;
-        audioSource.Play();
+        audioSource.Stop();
     }
 
 
-    public void UpdateAnimator()
+    public virtual void UpdateAnimator()
     {
         animator.SetFloat("AttackSpeed", PointsSystem.Instance.attackSpeedValue);
     }
 
-    private void SpawnAttackTrigger()
+    private virtual void SpawnAttackTrigger()
     {
         if (knifeTransform.Find("Attack Effect(Clone)") == false) // If there's no attacks present
         {

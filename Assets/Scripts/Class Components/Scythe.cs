@@ -1,7 +1,6 @@
 using UnityEngine;
-using UnityEngine.Audio;
 
-public class Weapon : MonoBehaviour
+public class Scythe : Weapon
 {
     private bool active;
 

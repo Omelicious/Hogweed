@@ -23,10 +23,12 @@ public class Entity : MonoBehaviour
 
     private void OnTriggerEnter(Collider other)
     {
-        if (other.CompareTag("Attack Trigger") && firstHit) // Only if collides with attack
+        if (!firstHit)
+            return;
+
+        if (other.CompareTag("Attack Trigger")) // Only if collides with attack
         {
             rigidBody.isKinematic = false;
-            thisCollider.excludeLayers = LayerMask.GetMask("Default");
 
             rigidBody.AddRelativeTorque(transform.forward * 70f);
 
@@ -36,11 +38,5 @@ public class Entity : MonoBehaviour
             
             PointsSystem.Instance.PointsTotalIncrease();
         }
-    }
-
-    IEnumerator ColliderToTrigger()
-    {
-        yield return new WaitForSeconds(0.5f); // How wait works? What is yield return?/////////////////////////////////////////////////
-        thisCollider.isTrigger = true;
     }
 }

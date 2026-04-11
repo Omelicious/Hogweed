@@ -20,9 +20,9 @@ public class PointsSystem : MonoBehaviour
     public int attackAreaPrice { get; private set; } = 10;
     
     // goes outside
-    public int movementSpeedValue { get; private set; } = 1;
-    public int attackSpeedValue { get; private set; } = 1;
-    public int attackAreaValue { get; private set; } = 1;
+    [field: SerializeField] public int movementSpeedValue { get; private set; } = 1;
+    [field: SerializeField] public int attackSpeedValue { get; private set; } = 1;
+    [field: SerializeField] public int attackAreaValue { get; private set; } = 1;
 
     /// <summary>
     /// Awake is called when the script instance is being loaded.
