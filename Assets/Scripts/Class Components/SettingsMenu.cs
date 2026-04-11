@@ -56,30 +56,28 @@ public class SettingsMenu : MonoBehaviour
 
     public void SetSensitivity(float sens)
     {
-        if(playerController != null)
-            playerController.sensitivity = sens;
-
         sensitivitySlider.value = sens;
 
         SettingsManager.Instance.SetSensitivity(sens);
+        if(playerController != null)
+            playerController.UpdateSensititvity();
+
     }
     public void SetXSensitivity(float sens)
     {
-        if(playerController != null)
-            playerController.xSensitivity = sens;
-
         xSensitivitySlider.value = sens;
 
         SettingsManager.Instance.SetXSensitivity(sens);
+        if(playerController != null)
+            playerController.UpdateSensititvity();
     }
     public void SetYSensitivity(float sens)
     {
-        if(playerController != null)
-            playerController.ySensitivity = sens;
-        
         ySensitivitySlider.value = sens;
 
         SettingsManager.Instance.SetYSensitivity(sens);
+        if(playerController != null)
+            playerController.UpdateSensititvity();
     }
     public void ClearProgress()
     {

@@ -348,7 +348,7 @@ GameObject:
   - component: {fileID: 1025030117773631802}
   - component: {fileID: 91250533501157144}
   - component: {fileID: -7789770989769556211}
-  - component: {fileID: 8308153515549931858}
+  - component: {fileID: -4002433418898760257}
   m_Layer: 0
   m_Name: Trimmer
   m_TagString: Untagged
@@ -364,7 +364,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 6623389375252512277}
   serializedVersion: 2
-  m_LocalRotation: {x: -0, y: 0.7071068, z: -0, w: 0.7071068}
+  m_LocalRotation: {x: 0, y: 0.7071068, z: 0, w: 0.7071068}
   m_LocalPosition: {x: 0.08, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
@@ -534,7 +534,7 @@ AudioSource:
     m_PreInfinity: 2
     m_PostInfinity: 2
     m_RotationOrder: 4
---- !u!114 &8308153515549931858
+--- !u!114 &-4002433418898760257
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -543,15 +543,15 @@ MonoBehaviour:
   m_GameObject: {fileID: 6623389375252512277}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 62fbf846d6f5c314cb505d87c08f5b82, type: 3}
+  m_Script: {fileID: 11500000, guid: d7b459bd49c34464991f31fed35c47e1, type: 3}
   m_Name: 
-  m_EditorClassIdentifier: Assembly-CSharp::Weapon
+  m_EditorClassIdentifier: Assembly-CSharp::Trimmer
   knifeTransform: {fileID: 2191311398602989584}
   attackEffect: {fileID: 8095007574145245704, guid: 36ebcf93f7f493040b219722e9232a85, type: 3}
   audioSource: {fileID: -7789770989769556211}
-  idleAudio: {fileID: 8300000, guid: 19ba55b4dc2ba72468c39f114c7f7267, type: 3}
   activeAudio: {fileID: 8300000, guid: 089c1ecdf214a364d8f9d2d4f8754beb, type: 3}
   animator: {fileID: 450639184848764629}
+  idleAudio: {fileID: 8300000, guid: 19ba55b4dc2ba72468c39f114c7f7267, type: 3}
 --- !u!1 &6967159726582730164
 GameObject:
   m_ObjectHideFlags: 0

@@ -280,7 +280,7 @@ GameObject:
   - component: {fileID: 8510436326573430882}
   - component: {fileID: 3459218381730478807}
   - component: {fileID: 1185128976961499848}
-  - component: {fileID: 8402049792430992252}
+  - component: {fileID: 3576313511102558915}
   m_Layer: 0
   m_Name: Scythe
   m_TagString: Untagged
@@ -296,7 +296,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 5541445296377114861}
   serializedVersion: 2
-  m_LocalRotation: {x: -0, y: 0.7071068, z: -0, w: 0.7071068}
+  m_LocalRotation: {x: 0, y: 0.7071068, z: 0, w: 0.7071068}
   m_LocalPosition: {x: 0.08, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
@@ -465,7 +465,7 @@ AudioSource:
     m_PreInfinity: 2
     m_PostInfinity: 2
     m_RotationOrder: 4
---- !u!114 &8402049792430992252
+--- !u!114 &3576313511102558915
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -474,13 +474,12 @@ MonoBehaviour:
   m_GameObject: {fileID: 5541445296377114861}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 62fbf846d6f5c314cb505d87c08f5b82, type: 3}
+  m_Script: {fileID: 11500000, guid: 95d52439fe3baaf4fb98ca4affa838c7, type: 3}
   m_Name: 
-  m_EditorClassIdentifier: Assembly-CSharp::Weapon
+  m_EditorClassIdentifier: Assembly-CSharp::Scythe
   knifeTransform: {fileID: 8044797735469004981}
   attackEffect: {fileID: 8095007574145245704, guid: 36ebcf93f7f493040b219722e9232a85, type: 3}
   audioSource: {fileID: 1185128976961499848}
-  idleAudio: {fileID: 8300000, guid: b931ce85fa80cb84c99ed866d8357c6f, type: 3}
   activeAudio: {fileID: 8300000, guid: 84fcd01d0a9171047aaacd9652f3b157, type: 3}
   animator: {fileID: 1246607983775625261}
 --- !u!1 &5748072542006145831
