@@ -33,7 +33,7 @@ public class PlayerController : MonoBehaviour
 
     #endregion
 
-    #region Player Variables
+    #region Player Components
 
     [SerializeField] private GameObject raycaster;
 
@@ -65,11 +65,7 @@ public class PlayerController : MonoBehaviour
     void Start()
     {
         FindActionBindings();
-
-        // Request sensitivity from settings manager
-        sensitivity = SettingsManager.Instance.sensitivity;
-        xSensitivity = SettingsManager.Instance.xSensitivity;
-        ySensitivity = SettingsManager.Instance.ySensitivity;
+        UpdateSensititvity();
 
         playerRigidBody = GetComponent<Rigidbody>(); // Taking Rigidbody
         playerCamera = GetComponentInChildren<Camera>(); // Taking child camera
@@ -326,5 +322,12 @@ public class PlayerController : MonoBehaviour
         viewAction?.Enable();
         lookAction = InputSystem.actions.FindAction("Look");
         lookAction?.Enable();
+    }
+
+    public void UpdateSensititvity()
+    {
+        sensitivity = SettingsManager.Instance.sensitivity;
+        xSensitivity = SettingsManager.Instance.xSensitivity;
+        ySensitivity = SettingsManager.Instance.ySensitivity;
     }
 }
