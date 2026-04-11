@@ -377,13 +377,13 @@ AudioSource:
   m_GameObject: {fileID: 5541445296377114861}
   m_Enabled: 1
   serializedVersion: 4
-  OutputAudioMixerGroup: {fileID: 0}
+  OutputAudioMixerGroup: {fileID: -1690483450280485609, guid: 0d83b7e7924b673499ecba1cb64a289f, type: 2}
   m_audioClip: {fileID: 0}
-  m_Resource: {fileID: 0}
+  m_Resource: {fileID: 8300000, guid: b931ce85fa80cb84c99ed866d8357c6f, type: 3}
   m_PlayOnAwake: 1
-  m_Volume: 1
-  m_Pitch: 1
-  Loop: 0
+  m_Volume: 0.25
+  m_Pitch: 0.56
+  Loop: 1
   Mute: 0
   Spatialize: 0
   SpatializePostEffects: 0
@@ -479,9 +479,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::Weapon
   knifeTransform: {fileID: 8044797735469004981}
   attackEffect: {fileID: 8095007574145245704, guid: 36ebcf93f7f493040b219722e9232a85, type: 3}
-  audioSource: {fileID: 0}
-  idleAudio: {fileID: 0}
-  activeAudio: {fileID: 0}
+  audioSource: {fileID: 1185128976961499848}
+  idleAudio: {fileID: 8300000, guid: b931ce85fa80cb84c99ed866d8357c6f, type: 3}
+  activeAudio: {fileID: 8300000, guid: 84fcd01d0a9171047aaacd9652f3b157, type: 3}
   animator: {fileID: 1246607983775625261}
 --- !u!1 &5748072542006145831
 GameObject:
