@@ -2,6 +2,9 @@ using UnityEngine;
 
 public class Enemy : MonoBehaviour
 {
+    [SerializeField] private float speed = 8f;
+
+    [SerializeField] private GameObject attackEffect;
     [SerializeField] private GameObject target;
     private Rigidbody targetRigidBody;
     private Rigidbody rigidBody;
@@ -14,7 +17,7 @@ public class Enemy : MonoBehaviour
         rigidBody = GetComponent<Rigidbody>();
 
         target = GameObject.FindWithTag("Player");
-        targetRigidBody = target.GetComponent<Rigidbody>();
+        targetRigidBody = target?.GetComponent<Rigidbody>();
     }
 
     // Update is called once per frame
@@ -25,17 +28,41 @@ public class Enemy : MonoBehaviour
 
     void FixedUpdate()
     {
-        GoToTarget();
+        if (target != null)
+            GoToTarget();
     }
 
     void GoToTarget()
     {
         // Calculate vector
-        moveVector = 5f * Time.deltaTime * Vector3.ClampMagnitude(target.transform.position - gameObject.transform.position, 1f);
+        moveVector.x = target.transform.position.x - gameObject.transform.position.x;
+        moveVector.y = 0f;
+        moveVector.z = target.transform.position.z - gameObject.transform.position.z;
+
+        if (moveVector.magnitude < 4.5f) // stop if close
+        {
+            Attack(moveVector);
+            return;
+        }
+        
+        moveVector = speed * Time.deltaTime * Vector3.ClampMagnitude(moveVector, 1f);
         // Move Rigidbody
+        rigidBody.MoveRotation(Quaternion.Euler(0f, Vector3.Angle(rigidBody.rotation.eulerAngles, moveVector), 0f));
         rigidBody.MovePosition(gameObject.transform.position + moveVector);
 
         FixGroundCollision();
+    }
+
+    void Attack(Vector3 direction)
+    {
+        direction.y = -1;
+        if (gameObject.transform.Find("Attack Effect(Clone)") == false) // If there's no attacks present
+        {
+            direction.y = -3f;
+            GameObject attackInstance = Instantiate(attackEffect, gameObject.transform.position + direction, rigidBody.rotation, gameObject.transform);
+            
+            Destroy(attackInstance, 1.5f);
+        }
     }
 
     void FixGroundCollision () // Raycasting ground. If player is sinking, moving him up to the surface
