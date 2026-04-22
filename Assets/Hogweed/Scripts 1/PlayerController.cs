@@ -232,7 +232,8 @@ public class PlayerController : MonoBehaviour
         float inputVertical = moveValue.y;
         float movementSpeed = movementSpeedBase; // For not to change movementSpeedBase. Makes sprint code easier
 
-        if (inputHorizontal == 0f && inputVertical == 0f) // no movement
+        // check for input
+        if (inputHorizontal == 0f && inputVertical == 0f)
         {
             animator.SetBool("isWalking", false);
             animator.SetBool("isRunning", false);
@@ -294,8 +295,8 @@ public class PlayerController : MonoBehaviour
     }
 
     void FixGroundCollision () // Raycasting ground. If player is sinking, moving him up to the surface
-{
-    RaycastHit hit;
+    {
+        RaycastHit hit;
         Ray ray = new Ray(raycaster.transform.position, Vector3.down);
 
         if (Physics.Raycast(ray, out hit, 3.9f, 1 << LayerMask.NameToLayer("Ground"))) // check for ground
@@ -306,7 +307,7 @@ public class PlayerController : MonoBehaviour
             newPosition.y = hit.point.y; // teleporting ourselves to the hitpoint (surface)
             playerRigidBody.MovePosition(newPosition);
         }
-}
+    }
 
     void FindActionBindings()
     {
