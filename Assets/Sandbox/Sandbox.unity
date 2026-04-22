@@ -1130,7 +1130,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::GrassSpawner
   grassMesh: {fileID: -462981019419857548, guid: 752200346dcd6bf45a97ca85cdbce602, type: 3}
-  grassMat: {fileID: -3035101939719975992, guid: 752200346dcd6bf45a97ca85cdbce602, type: 3}
+  grassMat: {fileID: 2100000, guid: c77c5fda18155074d80b212c1c82e11e, type: 2}
 --- !u!1 &1073577992
 GameObject:
   m_ObjectHideFlags: 0
