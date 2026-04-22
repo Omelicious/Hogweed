@@ -1,6 +1,6 @@
 using UnityEngine;
 
-public class Damageable : MonoBehaviour
+public class Damagable : MonoBehaviour
 {
     [SerializeField] private int hp;
 
