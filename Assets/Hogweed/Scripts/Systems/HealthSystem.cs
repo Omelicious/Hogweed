@@ -27,8 +27,8 @@ public class HealthSystem : MonoBehaviour
         
     }
 
-    public void Death(GameObject damageable)
+    public void Death(GameObject damagable)
     {
-        Destroy(damageable);
+        Destroy(damagable);
     }
 }
