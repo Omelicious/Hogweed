@@ -1,0 +1,14 @@
+fileFormatVersion: 2
+guid: eaf13e503275577488463619048f412a
+MonoImporter:
+  externalObjects: {}
+  serializedVersion: 2
+  defaultReferences:
+  - attackEffect: {fileID: 8095007574145245704, guid: 36ebcf93f7f493040b219722e9232a85, type: 3}
+  - target: {instanceID: 0}
+  - raycaster: {instanceID: 0}
+  executionOrder: 0
+  icon: {instanceID: 0}
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 

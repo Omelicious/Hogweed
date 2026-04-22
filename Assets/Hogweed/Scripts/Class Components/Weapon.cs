@@ -25,6 +25,11 @@ public abstract class Weapon : MonoBehaviour
         
     }
 
+    protected virtual void OnEnable()
+    {
+        UpdateAnimator(); // Hiding objects nullifies Animators parameters, we need to set them again
+    }
+
     public abstract void Attack (); // abstract forces to write daughter-specific code
 
 
@@ -50,4 +55,5 @@ public abstract class Weapon : MonoBehaviour
             Destroy(attackInstance, 0.5f);
         }
     }
+
 }
